@@ -10,7 +10,7 @@ template <typename T>
 class Graph
 {
 public:
-    explicit Graph( std::vector<T> data_list, bool (*linkFunc)(const T&,const T&));
+    explicit Graph(std::vector<T> data_list, bool (*linkFunc)(const T&,const T&));
     ~Graph();
     int getPathLen(T start, T end);
 
@@ -66,18 +66,15 @@ Graph<T>::Graph(std::vector<T> data_list, bool (*linkFunc_)(const T&,const T&))
 {
     this->linkFunc = linkFunc_;
     
-    //init the nodes vector with nodes by words, no edges now
+    //init nodes vector
     for (typename std::vector<T>::iterator it = data_list.begin(); it != data_list.end(); ++it)
     {
         Graph::Node* node = new Graph::Node(*it);
         nodes.push_back(node);
-        std::cout << node->data << '\n';
     }
 
-    std::cout << "all in! \n";
-    std::cout << "num nodes:" << nodes.size() << "\n";
 
-   // init edges for all nodes
+   // init edges
    for (typename std::vector<Graph::Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it)
    {
        
@@ -90,18 +87,8 @@ Graph<T>::Graph(std::vector<T> data_list, bool (*linkFunc_)(const T&,const T&))
        }
    }
 
-    //print edges
-   for (typename std::vector<Graph::Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it)
-   {
-        std::cout<< "edges of node-word: " << (**it).data << '\n';
-
-       for (typename std::vector<Graph::Node*>::iterator edge = (**it).edges.begin(); edge != (**it).edges.end(); ++edge)
-       {
-           std::cout << (**edge).data << '\n';
-       }
-   }
-
 }
+
 
 template <typename T>
 Graph<T>::~Graph()
@@ -116,7 +103,7 @@ Graph<T>::~Graph()
 }
 
 
-//assume start and end words are in word list
+//assume start and end data are in word list
 template <typename T>
 int Graph<T>::getPathLen(T start, T end)
 {
@@ -149,6 +136,7 @@ int Graph<T>::getPathLen(T start, T end)
 
     }
     
+    // err status return: no path present
     return -1;
 }
 
