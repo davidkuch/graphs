@@ -34,7 +34,7 @@ private:
             }
 
             T data;
-            bool mark; //used as "was-explored flag"
+            bool mark; //used as "was-explored" flag
             int level; //used to keep track of distance between nodes
             std::vector<Node*> edges;
     };
@@ -104,10 +104,13 @@ Graph<T>::~Graph()
     typename std::vector<Node*>::iterator it = nodes.begin();
     typename std::vector<Node*>::iterator end = nodes.end();
 
+
+    //free nodes
     for (; it != end; ++it)
     {
         delete (*it);
     }
+
 }
 
 
