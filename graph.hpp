@@ -10,8 +10,16 @@ template <typename T>
 class Graph
 {
 public:
+    //Takes a vector of the chosen data type and a link function.
+    //For each item in the vector, a node with the item as data would be created.
+    //For each pair of data items, the link func should return a boolean:
+    //true- if the nodes should be linked, false - otherwise.
     explicit Graph(std::vector<T> data_list, bool (*linkFunc)(const T&,const T&));
     ~Graph();
+
+    //Takes 2 data items, and returnes the length of the shortest path
+    //from one to another, or -1 - if no path exists.
+    //Assumes both data items are present in the graph.
     int getPathLen(T start, T end);
 
 
@@ -27,8 +35,8 @@ private:
             }
 
             T data;
-            bool mark;
-            int level;
+            bool mark; //used as "was-explored flag"
+            int level; //used to keep track of distance between nodes
             std::vector<Node*> edges;
     };
 
@@ -43,6 +51,7 @@ private:
 };
 
 
+//IMP:
 
 template <typename T>
 typename Graph<T>::Node* Graph<T>::findNode(T data)
@@ -103,7 +112,7 @@ Graph<T>::~Graph()
 }
 
 
-//assume start and end data are in word list
+//assume start and end were in init data list
 template <typename T>
 int Graph<T>::getPathLen(T start, T end)
 {
