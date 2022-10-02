@@ -42,6 +42,7 @@ private:
     std::vector<Node*> nodes;
     bool (*linkFunc)(const T&,const T&);
     
+    void linkByFunc();
     Node* findNode(T data);
 
     Graph(const Graph& other); // cctor blocked
@@ -83,7 +84,13 @@ Graph<T>::Graph(std::vector<T> data_list, bool (*linkFunc_)(const T&,const T&))
 
 
    // init edges
-   for (typename std::vector<Graph::Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it)
+   linkByFunc();
+
+}
+
+template <typename T>
+void Graph<T>::linkByFunc(){
+    for (typename std::vector<Graph::Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it)
    {
        
        for (typename std::vector<Graph::Node*>::iterator other = nodes.begin(); other != nodes.end(); ++other)
@@ -94,7 +101,6 @@ Graph<T>::Graph(std::vector<T> data_list, bool (*linkFunc_)(const T&,const T&))
            }
        }
    }
-
 }
 
 
