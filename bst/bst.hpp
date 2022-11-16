@@ -5,9 +5,13 @@
 
 namespace bst
 {
-typedef struct bst_iter bst_iter_ty;
 enum side{LEFT, RIGHT};
+
 class BST; //declared here for the friend funcs
+
+struct bst_iter_ty{
+    BST::Node* node;
+};
 
 std::ostream& operator<<(std::ostream& os_, const BST& bst); // can i declare it below?
 
@@ -19,6 +23,7 @@ public:
     ~BST();
     BST(const BST& other) = delete; //copy constructor blocked
     BST& operator=(const BST& other) = delete; // copy assignment blocked
+    friend bst_iter_ty;
 
     //basic functionality
     bst_iter_ty insert(int data); //throws on malloc failure
@@ -38,8 +43,8 @@ public:
     // TODO: for each()
 
     //friend std::ostream& operator<<(std::ostream& os_, const BST& bst);//must be friend?
-
-
+    
+    
 private:
     
     class Node
@@ -63,9 +68,7 @@ private:
         Node* childs[2];
     };
 
-    Node root;
-
-
+    Node* root; //pointer for simpler construction and destruction
 
 
 };
