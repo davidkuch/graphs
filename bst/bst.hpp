@@ -6,6 +6,7 @@
 namespace bst
 {
 typedef struct bst_iter bst_iter_ty;
+enum side{LEFT, RIGHT};
 class BST; //declared here for the friend funcs
 
 std::ostream& operator<<(std::ostream& os_, const BST& bst); // can i declare it below?
@@ -36,10 +37,34 @@ public:
     int getData(bst_iter_ty curr);
     // TODO: for each()
 
-    friend std::ostream& operator<<(std::ostream& os_, const BST& bst);//must be friend?
+    //friend std::ostream& operator<<(std::ostream& os_, const BST& bst);//must be friend?
 
 
 private:
+    
+    class Node
+    {
+    public:   
+        explicit Node(int data, Node* parent);
+        ~Node();
+        // ? block cctor and copy assignment?
+        
+        bool isLeaf();
+        bool hasChild(side which);
+
+        void setChild(int data, side where);
+        void setChild(Node* child, side where);
+
+        Node* getChild(side where);
+    
+    private:
+        int data;
+        Node* parent;
+        Node* childs[2];
+    };
+
+    Node root;
+
 
 
 
