@@ -3,7 +3,6 @@
 using namespace bst;
 
 
-
 BST::BST()
 {
     root = new Node(0,nullptr);
